@@ -50,15 +50,43 @@
 
     $('#coffee_image').attr("src", "static/coffee_beans.jpg");
 
-    $('#coffee_image').on('click', makeCoffee);
+    var drink, drinksOrdered, prices, total;
 
-    function makeCoffee() {
+    drinksOrdered = [];
+
+    prices = {
+                  'espresso':      3.25,
+                  'latte':         4.15,
+                  'hot chocolate': 2.50
+    };
+
+    total = 0;
+
+    function makeCoffee(drinkType) {
+         drinksOrdered.push(drinkType);
+         console.log(drinksOrdered);
          $('#coffee_image').attr('src', 'static/coffee_machine.jpg');
          setTimeout(function() { 
             $('#coffee_image').attr("src", "static/coffee_mug.jpg"); }, 1500);
          setTimeout(function() { 
             $('#coffee_image').attr("src", "static/coffee_beans.jpg"); }, 4000);
+
+         revenue(drinkType);
+         $('#revenue').html("$"+total.toFixed(2));
     }
+
+    function revenue(drinkType) {
+        total += prices[drinkType];
+        }
+
+
+    // Event listeners
+        $('#espresso').on('click', function () {
+            return makeCoffee('espresso');});
+        $('#latte').on('click', function () {
+            return makeCoffee('latte');});
+        $('#hot-chocolate').on('click', function () {
+            return makeCoffee('hot chocolate');});
 
 </script>
 
